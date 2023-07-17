@@ -35,6 +35,7 @@ class MyPyGame:
 
             resolution = np.array([self.sc.get_width(), self.sc.get_height()], dtype=np.float32)
             self.program["resolution"].value = resolution
+            self.program["fps"].value = int(self.clock.get_fps())
             self.program["t"].value = t
 
             self.vertex_array.render()

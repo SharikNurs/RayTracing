@@ -1,6 +1,7 @@
 #version 330
 
 uniform vec2 resolution;
+uniform int fps;
 uniform float t;
 in vec2 uv;
 out vec4 fragColor;
@@ -69,6 +70,7 @@ bool intersectPlane(Ray ray, Plane plane, out float t) {
 
 
 void main() {
+    fps;
     vec3 light = vec3(-0.8, -1.2, 2);
     light.x = cos(t);
     light.z = sin(t);
@@ -83,16 +85,16 @@ void main() {
     vec3 norm = vec3(0);
 
     if (IntersectRaySphere(ray, sphere, depth, norm)) {
-        float c = dot(norm, -light);
+        float c = max(0.2, dot(norm, -light));
         fragColor = vec4(c, c, c, 1);
     }
 
     else if (intersectPlane(ray, plane, depth)) {
-        float c = dot(plane.normal, -light);
+        float c = max(0.2, dot(plane.normal, -light));
         fragColor = vec4(c, c, c, 1);
     }
 
     else {
-        fragColor = vec4(0, 0, 0, 1);
+        fragColor = vec4(0.19, 0.32, 0.32, 1);
     }
 }
